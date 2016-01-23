@@ -1,0 +1,5 @@
+build/
+escape.app/
+Makefile
+moc_*.cpp
+*.o
