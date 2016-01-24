@@ -8,7 +8,7 @@
 #define SPEED_X 0.05
 
 // Player vertical speed
-#define INITIAL_SPEED 0.075
+#define INITIAL_SPEED 0.04
 #define SPEED_LOWER 0.003
 
 Player::Player() {
@@ -23,10 +23,8 @@ Player::Player() {
 }
 
 void Player::jump() {
-    if (!_jumping) {
-        _jumping = true;
-        _speedY = INITIAL_SPEED;
-    }
+    _jumping = true;
+    _speedY = INITIAL_SPEED;
 }
 
 void Player::update() {

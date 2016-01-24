@@ -4,6 +4,8 @@
 
 #include <QtOpenGL>
 
+#include <iostream>
+
 // Main drawing routine
 void Scene::draw(Game* game) {
     glColor3f(0.0f, 1.0f, 0.0f);
@@ -38,24 +40,20 @@ void Scene::draw(Game* game) {
         glVertex2f(player.x() - halfW, -0.5f + halfH);
     glEnd();
 
-    // Mock obstacles - To be changed
+    // Obstacles
     glColor3f(0.5f, 0.5f, 1.0f);
 
-    float myY = 0.5f - player.y();
+    for (Obstacle obstacle : game->obstacles()) {
+        float myY = obstacle.y() - player.y();
 
-    glBegin(GL_QUADS);
-        glVertex2f(-0.55f, myY - 0.1f);
-        glVertex2f(-0.50f, myY - 0.1f);
-        glVertex2f(-0.50f, myY + 0.1f);
-        glVertex2f(-0.55f, myY + 0.1f);
-    glEnd();
+        halfW = obstacle.w() / 2.0f;
+        halfH = obstacle.h() / 2.0f;
 
-    myY = 1.25f - player.y();
-
-    glBegin(GL_QUADS);
-        glVertex2f(0.50f, myY - 0.1f);
-        glVertex2f(0.55f, myY - 0.1f);
-        glVertex2f(0.55f, myY + 0.1f);
-        glVertex2f(0.50f, myY + 0.1f);
-    glEnd();
+        glBegin(GL_QUADS);
+            glVertex2f(obstacle.x() - halfW, myY - halfH);
+            glVertex2f(obstacle.x() + halfW, myY - halfH);
+            glVertex2f(obstacle.x() + halfW, myY + halfH);
+            glVertex2f(obstacle.x() - halfW, myY + halfH);
+        glEnd();
+    }
 }

@@ -43,9 +43,7 @@ void Game::timeoutSlot() {
         _player.jump();
 
     _player.update();
-
-    if (_player.jumping())
-        _y++;
+    _obstacleManager.update(_player.y());
 
     updateGL();
 }

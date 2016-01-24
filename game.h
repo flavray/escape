@@ -1,6 +1,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include "obstacle_manager.h"
 #include "player.h"
 
 #include <QGLWidget>
@@ -18,7 +19,7 @@ public:
     void keyReleaseEvent(QKeyEvent* keyEvent);
 
     Player player() { return _player; }
-    int y() { return _y; }
+    std::deque<Obstacle> obstacles() { return _obstacleManager.obstacles(); }
 
 public slots:
     void timeoutSlot();
@@ -27,7 +28,7 @@ private:
     QTimer* t_Timer;
     Player _player;
 
-    int _y;
+    ObstacleManager _obstacleManager;
 
     bool jumpPressed;
 };
