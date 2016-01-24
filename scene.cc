@@ -61,4 +61,19 @@ void Scene::draw(Game* game) {
             glVertex2f(obstacle.x() - halfW, myY - halfH);
         glEnd();
     }
+
+    // Laser
+    glColor3f(1.0f, 0.0f, 0.0f);
+
+    float laserY = game->laser().y() - player.y() - 0.5f;
+
+    if (game->laser().y() > player.y() - player.h())
+        glColor3f(1.0f, 1.0f, 0.0f);
+
+    glBegin(GL_QUADS);
+        glVertex2f(LEFT_SIDE, laserY);
+        glVertex2f(RIGHT_SIDE, laserY);
+        glVertex2f(RIGHT_SIDE, laserY - 0.05f);
+        glVertex2f(LEFT_SIDE, laserY - 0.05f);
+    glEnd();
 }

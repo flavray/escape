@@ -1,6 +1,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include "laser.h"
 #include "obstacle_manager.h"
 #include "player.h"
 
@@ -19,6 +20,7 @@ public:
     void keyReleaseEvent(QKeyEvent* keyEvent);
 
     Player player() { return _player; }
+    Laser laser() { return _laser; }
     std::deque<Obstacle> obstacles() { return _obstacleManager.obstacles(); }
 
 public slots:
@@ -26,8 +28,9 @@ public slots:
 
 private:
     QTimer* t_Timer;
-    Player _player;
 
+    Player _player;
+    Laser _laser;
     ObstacleManager _obstacleManager;
 
     bool jumpPressed;

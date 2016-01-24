@@ -45,6 +45,9 @@ void Game::timeoutSlot() {
     _player.update();
     _obstacleManager.update(_player.y());
 
+    if (_player.y() > 0.5f)
+        _laser.update();
+
     updateGL();
 }
 
