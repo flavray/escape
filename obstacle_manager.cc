@@ -3,7 +3,7 @@
 #include "scene.h"
 
 ObstacleManager::ObstacleManager()
-    : _distribution(0.6f, 0.5f)
+    : _distribution(0.6f, 0.4f)
 {
     // generate first obstacle - chosen on fair dice roll
     _obstacles.push_back(Obstacle(RIGHT_SIDE, 1.0f));

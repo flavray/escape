@@ -2,6 +2,7 @@
 
 #include "scene.h"
 
+#include <iostream>
 #include <QtOpenGL>
 
 // Player horizontal speed
@@ -13,7 +14,7 @@
 
 Player::Player() {
     _x = -0.45f;
-    _y = -0.5f;
+    _y = 0.0f;
 
     _w = 0.1f;
     _h = 0.05f;
@@ -43,8 +44,22 @@ void Player::update() {
             afterJump();
     } else {
         if (_y > 0.0f)
-            _y -= 0.01;
+            _y -= 0.005;
     }
+}
+
+bool Player::collision(Obstacle obstacle) {
+    float px = _x - _w / 2.0f;
+    float py = _y + _h / 2.0f;
+
+    float ox = obstacle.x() - obstacle.w() / 2.0f;
+    float oy = obstacle.y() + obstacle.h() / 2.0f;
+
+    // player is not on a side
+    if ((px != ox + obstacle.w()) && (px + _w != ox))
+        return false;
+
+    return ((py > oy - obstacle.h()) && (py < oy)) || ((py > oy) && (py - _h < oy));
 }
 
 // Adjust player's position to stick to the sides

@@ -1,6 +1,8 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
+#include "obstacle.h"
+
 class Player {
 public:
     Player();
@@ -13,6 +15,8 @@ public:
     float w() { return _w; }
     float h() { return _h; }
     bool jumping() { return _jumping; }
+
+    bool collision(Obstacle obstacle);
 
     enum Direction { LEFT, RIGHT };
 
