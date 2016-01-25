@@ -12,18 +12,18 @@ void Scene::draw(Game* game) {
 
     // Left side
     glBegin(GL_QUADS);
-        glVertex2f(-1.0f, 1.0f);
-        glVertex2f(LEFT_SIDE, 1.0f);
-        glVertex2f(LEFT_SIDE, -1.0f);
-        glVertex2f(-1.0f, -1.0f);
+    glVertex2f(-1.0f, 1.0f);
+    glVertex2f(LEFT_SIDE, 1.0f);
+    glVertex2f(LEFT_SIDE, -1.0f);
+    glVertex2f(-1.0f, -1.0f);
     glEnd();
 
     // Right side
     glBegin(GL_QUADS);
-        glVertex2f(RIGHT_SIDE, 1.0f);
-        glVertex2f(1.0f, 1.0f);
-        glVertex2f(1.0f, -1.0f);
-        glVertex2f(RIGHT_SIDE, -1.0f);
+    glVertex2f(RIGHT_SIDE, 1.0f);
+    glVertex2f(1.0f, 1.0f);
+    glVertex2f(1.0f, -1.0f);
+    glVertex2f(RIGHT_SIDE, -1.0f);
     glEnd();
 
     // Player
@@ -34,10 +34,10 @@ void Scene::draw(Game* game) {
     glColor3f(1.0f, 0.5f, 0.0f);
 
     glBegin(GL_QUADS);
-        glVertex2f(player.x() - halfW, -0.5f + halfH);
-        glVertex2f(player.x() + halfW, -0.5f + halfH);
-        glVertex2f(player.x() + halfW, -0.5f - halfH);
-        glVertex2f(player.x() - halfW, -0.5f - halfH);
+    glVertex2f(player.x() - halfW, -0.5f + halfH);
+    glVertex2f(player.x() + halfW, -0.5f + halfH);
+    glVertex2f(player.x() + halfW, -0.5f - halfH);
+    glVertex2f(player.x() - halfW, -0.5f - halfH);
     glEnd();
 
     // Obstacles
@@ -55,10 +55,10 @@ void Scene::draw(Game* game) {
             glColor3f(0.5f, 0.5f, 1.0f);
 
         glBegin(GL_QUADS);
-            glVertex2f(obstacle.x() - halfW, myY + halfH);
-            glVertex2f(obstacle.x() + halfW, myY + halfH);
-            glVertex2f(obstacle.x() + halfW, myY - halfH);
-            glVertex2f(obstacle.x() - halfW, myY - halfH);
+        glVertex2f(obstacle.x() - halfW, myY + halfH);
+        glVertex2f(obstacle.x() + halfW, myY + halfH);
+        glVertex2f(obstacle.x() + halfW, myY - halfH);
+        glVertex2f(obstacle.x() - halfW, myY - halfH);
         glEnd();
     }
 
@@ -71,9 +71,9 @@ void Scene::draw(Game* game) {
         glColor3f(1.0f, 1.0f, 0.0f);
 
     glBegin(GL_QUADS);
-        glVertex2f(LEFT_SIDE, laserY);
-        glVertex2f(RIGHT_SIDE, laserY);
-        glVertex2f(RIGHT_SIDE, laserY - 0.05f);
-        glVertex2f(LEFT_SIDE, laserY - 0.05f);
+    glVertex2f(LEFT_SIDE, laserY);
+    glVertex2f(RIGHT_SIDE, laserY);
+    glVertex2f(RIGHT_SIDE, laserY - 0.05f);
+    glVertex2f(LEFT_SIDE, laserY - 0.05f);
     glEnd();
 }
