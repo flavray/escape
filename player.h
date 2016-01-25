@@ -8,7 +8,7 @@ public:
     Player();
     void jump();
 
-    void update();
+    void update(bool& jumpPressed);
 
     float x() { return _x; }
     float y() { return _y; }

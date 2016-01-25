@@ -44,10 +44,9 @@ void Game::keyReleaseEvent(QKeyEvent* keyEvent) {
 void Game::timeoutSlot() {
     if (jumpPressed) {
         _player.jump();
-        jumpPressed = false;
     }
 
-    _player.update();
+    _player.update(jumpPressed);
     _obstacleManager.update(_player.y());
 
     if (_player.y() > 0.5f)
