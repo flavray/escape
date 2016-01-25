@@ -28,7 +28,7 @@ void Player::jump() {
     _speedY = INITIAL_SPEED;
 }
 
-void Player::update() {
+void Player::update(bool& jumpPressed) {
     if (_jumping) {
         _speedY -= SPEED_LOWER;
 
@@ -40,8 +40,10 @@ void Player::update() {
             _x -= SPEED_X;
 
         // Collision
-        if ((_x - _w / 2.0f <= LEFT_SIDE) || (_x + _w / 2.0f >= RIGHT_SIDE))
+        if ((_x - _w / 2.0f <= LEFT_SIDE) || (_x + _w / 2.0f >= RIGHT_SIDE)) {
             afterJump();
+            jumpPressed = false; /* to avoid autojump */
+        }
     } else {
         if (_y > 0.0f)
             _y -= 0.005;

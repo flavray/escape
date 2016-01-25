@@ -19,6 +19,9 @@ Game::Game(int framesPerSecond, QWidget *parent)
 }
 
 void Game::keyPressEvent(QKeyEvent* keyEvent) {
+    if (keyEvent->isAutoRepeat())
+        return;
+
     switch (keyEvent->key()) {
     case Qt::Key_Escape:
         close();
@@ -39,10 +42,11 @@ void Game::keyReleaseEvent(QKeyEvent* keyEvent) {
 }
 
 void Game::timeoutSlot() {
-    if (jumpPressed)
+    if (jumpPressed) {
         _player.jump();
+    }
 
-    _player.update();
+    _player.update(jumpPressed);
     _obstacleManager.update(_player.y());
 
     if (_player.y() > 0.5f)
