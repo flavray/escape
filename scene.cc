@@ -8,22 +8,22 @@
 
 // Main drawing routine
 void Scene::draw(Game* game) {
-    glColor3f(0.0f, 1.0f, 0.0f);
+    glColor3f(0.11f, 0.11f, 0.11f);
 
     // Left side
     glBegin(GL_QUADS);
-        glVertex2f(-1.0f, 1.0f);
-        glVertex2f(LEFT_SIDE, 1.0f);
-        glVertex2f(LEFT_SIDE, -1.0f);
-        glVertex2f(-1.0f, -1.0f);
+    glVertex2f(-1.0f, 1.0f);
+    glVertex2f(LEFT_SIDE, 1.0f);
+    glVertex2f(LEFT_SIDE, -1.0f);
+    glVertex2f(-1.0f, -1.0f);
     glEnd();
 
     // Right side
     glBegin(GL_QUADS);
-        glVertex2f(RIGHT_SIDE, 1.0f);
-        glVertex2f(1.0f, 1.0f);
-        glVertex2f(1.0f, -1.0f);
-        glVertex2f(RIGHT_SIDE, -1.0f);
+    glVertex2f(RIGHT_SIDE, 1.0f);
+    glVertex2f(1.0f, 1.0f);
+    glVertex2f(1.0f, -1.0f);
+    glVertex2f(RIGHT_SIDE, -1.0f);
     glEnd();
 
     // Player
@@ -31,17 +31,17 @@ void Scene::draw(Game* game) {
     float halfW = player.w() / 2.0f;
     float halfH = player.h() / 2.0f;
 
-    glColor3f(1.0f, 0.5f, 0.0f);
+    glColor3f(0.85f, 0.79f, 0.61f);
 
     glBegin(GL_QUADS);
-        glVertex2f(player.x() - halfW, -0.5f + halfH);
-        glVertex2f(player.x() + halfW, -0.5f + halfH);
-        glVertex2f(player.x() + halfW, -0.5f - halfH);
-        glVertex2f(player.x() - halfW, -0.5f - halfH);
+    glVertex2f(player.x() - halfW, -0.5f + halfH);
+    glVertex2f(player.x() + halfW, -0.5f + halfH);
+    glVertex2f(player.x() + halfW, -0.5f - halfH);
+    glVertex2f(player.x() - halfW, -0.5f - halfH);
     glEnd();
 
     // Obstacles
-    glColor3f(0.5f, 0.5f, 1.0f);
+    glColor3f(0.85f, 0.79f, 0.61f);
 
     for (Obstacle obstacle : game->obstacles()) {
         float myY = obstacle.y() - player.y() - 0.5f;
@@ -50,20 +50,20 @@ void Scene::draw(Game* game) {
         halfH = obstacle.h() / 2.0f;
 
         if (player.collision(obstacle))
-            glColor3f(1.0f, 0.0f, 1.0f);
+            glColor3f(0.86f, 0.2f, 0.13f);
         else
-            glColor3f(0.5f, 0.5f, 1.0f);
+            glColor3f(0.85f, 0.79f, 0.61f);
 
         glBegin(GL_QUADS);
-            glVertex2f(obstacle.x() - halfW, myY + halfH);
-            glVertex2f(obstacle.x() + halfW, myY + halfH);
-            glVertex2f(obstacle.x() + halfW, myY - halfH);
-            glVertex2f(obstacle.x() - halfW, myY - halfH);
+        glVertex2f(obstacle.x() - halfW, myY + halfH);
+        glVertex2f(obstacle.x() + halfW, myY + halfH);
+        glVertex2f(obstacle.x() + halfW, myY - halfH);
+        glVertex2f(obstacle.x() - halfW, myY - halfH);
         glEnd();
     }
 
     // Laser
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.86f, 0.2f, 0.13f);
 
     float laserY = game->laser().y() - player.y() - 0.5f;
 
@@ -71,9 +71,9 @@ void Scene::draw(Game* game) {
         glColor3f(1.0f, 1.0f, 0.0f);
 
     glBegin(GL_QUADS);
-        glVertex2f(LEFT_SIDE, laserY);
-        glVertex2f(RIGHT_SIDE, laserY);
-        glVertex2f(RIGHT_SIDE, laserY - 0.05f);
-        glVertex2f(LEFT_SIDE, laserY - 0.05f);
+    glVertex2f(LEFT_SIDE, laserY);
+    glVertex2f(RIGHT_SIDE, laserY);
+    glVertex2f(RIGHT_SIDE, laserY - 0.05f);
+    glVertex2f(LEFT_SIDE, laserY - 0.05f);
     glEnd();
 }
