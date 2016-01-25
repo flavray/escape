@@ -3,3 +3,4 @@ escape.app/
 Makefile
 moc_*.cpp
 *.o
+escape
