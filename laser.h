@@ -4,7 +4,7 @@
 class Laser {
 public:
     Laser();
-    void update();
+    void update(float y);
 
     float y() { return _y; }
 
