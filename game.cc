@@ -47,7 +47,7 @@ void Game::timeoutSlot() {
     }
 
     _player.update(jumpPressed);
-    _obstacleManager.update(_player.y());
+    _obstacleManager.update(_laser.y());
 
     _laser.update(_player.y());
 
