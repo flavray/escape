@@ -76,4 +76,20 @@ void Scene::draw(Game* game) {
     glVertex2f(RIGHT_SIDE, laserY - 0.05f);
     glVertex2f(LEFT_SIDE, laserY - 0.05f);
     glEnd();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    glBegin(GL_QUADS);
+    glVertex2f(LEFT_SIDE - 0.06f, laserY + 0.03f);
+    glVertex2f(LEFT_SIDE, laserY);
+    glVertex2f(LEFT_SIDE, laserY - 0.05f);
+    glVertex2f(LEFT_SIDE - 0.06f, laserY - 0.08f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex2f(RIGHT_SIDE, laserY);
+    glVertex2f(RIGHT_SIDE + 0.06f, laserY + 0.03f);
+    glVertex2f(RIGHT_SIDE + 0.06f, laserY - 0.08f);
+    glVertex2f(RIGHT_SIDE, laserY - 0.05f);
+    glEnd();
 }
