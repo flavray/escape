@@ -5,6 +5,9 @@
 #include <QtOpenGL>
 #include <iostream>
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 Game::Game(int framesPerSecond, QWidget *parent)
     : QGLWidget(parent)
 {
@@ -36,6 +39,10 @@ void Game::reset() {
 
     /* Reset misc state */
     jumpPressed = false;
+}
+
+void Game::setFont(FT_Face font) {
+    _font = font;
 }
 
 void Game::keyPressEvent(QKeyEvent* keyEvent) {
@@ -130,4 +137,10 @@ void Game::collisions() {
                       << std::endl;
         reset();
     }
+
+}
+
+Game::~Game() {
+    /* We need to manually delete the dangling pointer. */
+    delete _font;
 }
