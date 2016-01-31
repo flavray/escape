@@ -15,6 +15,9 @@ Game::Game(int framesPerSecond, QWidget *parent)
 
     connect(t_Timer, SIGNAL(timeout()), this, SLOT(timeoutSlot()));
 
+    _currentScore = 0;
+    _maxScore = 0;
+
     jumpPressed = false;
 }
 
@@ -42,15 +45,21 @@ void Game::keyReleaseEvent(QKeyEvent* keyEvent) {
 }
 
 void Game::timeoutSlot() {
+    /* Handle keypresses */
     if (jumpPressed) {
         _player.jump();
     }
 
+    /* Internal state update */
     _player.update(jumpPressed);
-    _obstacleManager.update(_laser.y());
 
+    _obstacleManager.update(_laser.y());
     _laser.update(_player.y());
 
+    /* Score update */
+    updateScore((unsigned int)_player.y());
+
+    /* OpenGL update */
     updateGL();
 }
 
@@ -66,4 +75,10 @@ void Game::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     Scene::draw(this);
+}
+
+void Game::updateScore(unsigned int s) {
+    _currentScore = s;
+    if (s > _maxScore)
+        _maxScore = s;
 }

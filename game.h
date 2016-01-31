@@ -19,6 +19,10 @@ public:
     void keyPressEvent(QKeyEvent* keyEvent);
     void keyReleaseEvent(QKeyEvent* keyEvent);
 
+    unsigned int score() { return _currentScore; }
+    unsigned int maxScore() { return _maxScore; }
+    void updateScore(unsigned int s);
+
     Player player() { return _player; }
     Laser laser() { return _laser; }
     std::deque<Obstacle> obstacles() { return _obstacleManager.obstacles(); }
@@ -28,6 +32,9 @@ public slots:
 
 private:
     QTimer* t_Timer;
+
+    unsigned int _currentScore;
+    unsigned int _maxScore;
 
     Player _player;
     Laser _laser;
