@@ -50,6 +50,10 @@ void Game::keyPressEvent(QKeyEvent* keyEvent) {
     case Qt::Key_Space:
         jumpPressed = true;
         break;
+
+    case Qt::Key_R:
+        glRotatef(90, 0, 0, 1);
+        break;
     }
 }
 
