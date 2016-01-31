@@ -1,4 +1,5 @@
 #include <cmath>
+#include <chrono>
 
 #include "obstacle_manager.h"
 
@@ -8,6 +9,10 @@ ObstacleManager::ObstacleManager()
     : _space_distribution(0.6f, 0.4f)
     , _size_distribution(Obstacle::HEIGHT, 0.1f)
 {
+    /* Init randgen */
+    time_t tm = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    _generator.seed(tm);
+
     // generate first obstacle - chosen on fair dice roll
     _obstacles.push_back(Obstacle(RIGHT_SIDE, 1.0f));
     _lastDirection = Player::RIGHT;
