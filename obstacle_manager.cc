@@ -7,7 +7,7 @@
 
 ObstacleManager::ObstacleManager()
     : _space_distribution(0.6f, 0.4f)
-    , _size_distribution(Obstacle::HEIGHT, 0.1f)
+    , _size_distribution(Obstacle::HEIGHT, 0.06f)
 {
     /* Init randgen */
     time_t tm = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -51,12 +51,9 @@ void ObstacleManager::generateObstacle() {
 /* This is used to vary the "randomness" of the obstacles flow, in
    order to make the game harder and harder.
 */
-void ObstacleManager::updateObstacleLevel(float y) {
-    float coef = log10(y);
-
-    /* Every 100 meters, the gaussian is recentered lower. */
-    _space_distribution = std::normal_distribution<float>(0.6f - 0.1 * coef, 0.1f);
-
-    /* Every 100 meters*/
-    _size_distribution = std::normal_distribution<float>(Obstacle::HEIGHT, 0.1f + 0.1f * coef);
+void ObstacleManager::updateObstacleLevel(unsigned int level) {
+    /* The space between obstacles is linearly thinner and thinner. */
+    _space_distribution = std::normal_distribution<float>
+        (0.6f * (float)(100 - level) / 100.0f,
+         0.1f);
 }

@@ -103,7 +103,7 @@ void Game::paintGL() {
 void Game::updateScore(unsigned int s) {
     if (_level < (s / 10)) { /* If we passed a level */
         _level = s / 10;
-        _obstacleManager.updateObstacleLevel((float)s);
+        _obstacleManager.updateObstacleLevel(_level);
     }
     _currentScore = s;
     if (s > _maxScore)

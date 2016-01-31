@@ -11,7 +11,7 @@ class ObstacleManager {
 public:
     ObstacleManager();
     void update(float y);
-    void updateObstacleLevel(float y);
+    void updateObstacleLevel(unsigned int level);
 
     std::deque<Obstacle> obstacles() { return _obstacles; }
 
