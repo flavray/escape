@@ -3,7 +3,11 @@
 #include "scene.h"
 
 #include <QtOpenGL>
+#include <QGLFunctions>
 #include <iostream>
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 Game::Game(int framesPerSecond, QWidget *parent)
     : QGLWidget(parent)
@@ -36,6 +40,10 @@ void Game::reset() {
 
     /* Reset misc state */
     jumpPressed = false;
+}
+
+void Game::setFont(FT_Face font) {
+    _font = font;
 }
 
 void Game::keyPressEvent(QKeyEvent* keyEvent) {
@@ -87,6 +95,7 @@ void Game::timeoutSlot() {
 }
 
 void Game::initializeGL() {
+    initializeGLFunctions();
     glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
 }
 
@@ -97,7 +106,53 @@ void Game::resizeGL(int width, int height) {
 void Game::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    GLuint texture[1] = {0};
+
     Scene::draw(this);
+
+    glShadeModel(GL_FLAT);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+
+    FT_Load_Char(_font, 'A', FT_LOAD_RENDER);
+    FT_GlyphSlot g = _font->glyph;
+
+    glTexImage2D(
+      GL_TEXTURE_2D,
+      0,
+      GL_RED,
+      g->bitmap.width,
+      g->bitmap.rows,
+      0,
+      GL_RED,
+      GL_UNSIGNED_BYTE,
+      g->bitmap.buffer
+    );
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(-0.05f, -0.5f);
+
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(0.05f, -0.5f);
+
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(0.05f, -0.45f);
+
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(-0.05f, -0.45f);
+    glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+
 }
 
 void Game::updateScore(unsigned int s) {
@@ -130,4 +185,10 @@ void Game::collisions() {
                       << std::endl;
         reset();
     }
+
+}
+
+Game::~Game() {
+    /* We need to manually delete the dangling pointer. */
+    delete _font;
 }

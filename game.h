@@ -6,8 +6,12 @@
 #include "player.h"
 
 #include <QGLWidget>
+#include <QGLFunctions>
 
-class Game : public QGLWidget {
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+class Game : public QGLWidget, public QGLFunctions {
 Q_OBJECT
 
 public:
@@ -29,6 +33,11 @@ public:
     Player player() { return _player; }
     Laser laser() { return _laser; }
     std::deque<Obstacle> obstacles() { return _obstacleManager.obstacles(); }
+    FT_Face font() { return _font; }
+
+    void setFont(FT_Face font);
+
+    ~Game();
 
 public slots:
     void timeoutSlot();
@@ -39,6 +48,7 @@ private:
     unsigned int _currentScore;
     unsigned int _maxScore;
     unsigned int _level; /* A level is every tens of y() */
+    FT_Face _font;
 
     Player _player;
     Laser _laser;
