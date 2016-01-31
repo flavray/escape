@@ -23,6 +23,20 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    /* Height = 32px */
+    FT_Set_Pixel_Sizes(font, 0, 32);
+
+    /* Load differents chars used throughout the app */
+    char charset[] = {'1', '2', '3', '4', '5',
+                      '6', '7', '8', '9',
+                      '/', 'm'};
+    for (char c : charset)
+        if (FT_Load_Char(font, c, FT_LOAD_RENDER)) {
+            std::cerr << "Unable to load character " << c << std::endl;
+            return EXIT_FAILURE;
+        }
+
+
     QApplication app(argc, argv);
 
     Game game;

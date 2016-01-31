@@ -6,11 +6,12 @@
 #include "player.h"
 
 #include <QGLWidget>
+#include <QGLFunctions>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-class Game : public QGLWidget {
+class Game : public QGLWidget, public QGLFunctions {
 Q_OBJECT
 
 public:
@@ -32,6 +33,7 @@ public:
     Player player() { return _player; }
     Laser laser() { return _laser; }
     std::deque<Obstacle> obstacles() { return _obstacleManager.obstacles(); }
+    FT_Face font() { return _font; }
 
     void setFont(FT_Face font);
 
