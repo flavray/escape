@@ -6,7 +6,7 @@
 #include <iostream>
 
 Game::Game(int framesPerSecond, QWidget *parent)
-    : QGLWidget(parent)
+    : QGLWidget(parent), _digitsImage("digits.png")
 {
     setWindowTitle(QString("escape"));
 
@@ -102,6 +102,41 @@ void Game::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     Scene::draw(this);
+
+    /* Score */
+    _digitsImage.prepaint();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    unsigned int score = _currentScore;
+    int i = 0;
+    while (score > 0) {
+        int digit = score % 10;
+
+        float width = 0.1f;
+        float x = digit * width;
+
+        glBegin(GL_QUADS);
+
+        glTexCoord2f(x, 0.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.8);
+
+        glTexCoord2f(x + width, 0.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.8);
+
+        glTexCoord2f(x + width, 1.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.88);
+
+        glTexCoord2f(x, 1.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.88);
+
+        glEnd();
+
+        score /= 10;
+        i++;
+    }
+
+    glDisable(GL_TEXTURE_2D);
 }
 
 void Game::updateScore(unsigned int s) {
