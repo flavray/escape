@@ -1,6 +1,7 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include "image.h"
 #include "laser.h"
 #include "obstacle_manager.h"
 #include "player.h"
@@ -43,6 +44,8 @@ private:
     Player _player;
     Laser _laser;
     ObstacleManager _obstacleManager;
+
+    Image _digitsImage;
 
     bool jumpPressed;
 
