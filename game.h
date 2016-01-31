@@ -19,6 +19,8 @@ public:
     void keyPressEvent(QKeyEvent* keyEvent);
     void keyReleaseEvent(QKeyEvent* keyEvent);
 
+    void reset();
+
     unsigned int score() { return _currentScore; }
     unsigned int maxScore() { return _maxScore; }
     unsigned int level() { return _level; }
@@ -43,6 +45,8 @@ private:
     ObstacleManager _obstacleManager;
 
     bool jumpPressed;
+
+    void collisions();
 };
 
 #endif

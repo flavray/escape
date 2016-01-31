@@ -22,6 +22,22 @@ Game::Game(int framesPerSecond, QWidget *parent)
     jumpPressed = false;
 }
 
+void Game::reset() {
+    /* Reset score and level */
+    updateScore(0);
+    _level = 0;
+
+    /* Reset player position */
+    _player = Player();
+
+    /* Reset world */
+    _laser = Laser();
+    _obstacleManager = ObstacleManager();
+
+    /* Reset misc state */
+    jumpPressed = false;
+}
+
 void Game::keyPressEvent(QKeyEvent* keyEvent) {
     if (keyEvent->isAutoRepeat())
         return;
@@ -45,6 +61,9 @@ void Game::keyReleaseEvent(QKeyEvent* keyEvent) {
     }
 }
 
+
+/* This is the main loop function, every change in the game happens
+   here. */
 void Game::timeoutSlot() {
     /* Handle keypresses */
     if (jumpPressed) {
@@ -59,6 +78,9 @@ void Game::timeoutSlot() {
 
     /* Score update */
     updateScore((unsigned int)_player.y());
+
+    /* Check for eventual collisions */
+    collisions();
 
     /* OpenGL update */
     updateGL();
@@ -86,4 +108,26 @@ void Game::updateScore(unsigned int s) {
     _currentScore = s;
     if (s > _maxScore)
         _maxScore = s;
+}
+
+void Game::collisions() {
+    bool collide = false;
+
+    /* Check obstacle collisions */
+    for (Obstacle& obs : obstacles())
+        if (_player.collision(obs)) {
+            collide = true;
+            break;
+        }
+
+    /* Check laser collision */
+    collide = collide || (_laser.y() > _player.y() - _player.h());
+
+    if (collide) {
+        std::cout << "End of game at level "
+                      << _level
+                      << " (" << _player.y() << "m)."
+                      << std::endl;
+        reset();
+    }
 }
