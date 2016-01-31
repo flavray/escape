@@ -103,7 +103,7 @@ void Game::paintGL() {
 
     Scene::draw(this);
 
-    /* Score */
+    /* Score and max score */
     _digitsImage.prepaint();
 
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -133,6 +133,34 @@ void Game::paintGL() {
         glEnd();
 
         score /= 10;
+        i++;
+    }
+
+    unsigned int mscore = _maxScore;
+    i = 0;
+    while (mscore > 0) {
+        int digit = mscore % 10;
+
+        float width = 0.1f;
+        float x = digit * width;
+
+        glBegin(GL_QUADS);
+
+        glTexCoord2f(x, 0.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.7);
+
+        glTexCoord2f(x + width, 0.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.7);
+
+        glTexCoord2f(x + width, 1.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.78);
+
+        glTexCoord2f(x, 1.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.78);
+
+        glEnd();
+
+        mscore /= 10;
         i++;
     }
 
