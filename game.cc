@@ -59,8 +59,6 @@ void Game::timeoutSlot() {
     /* Score update */
     updateScore((unsigned int)_player.y());
 
-    std::cout << maxScore() << std::endl;
-
     /* OpenGL update */
     updateGL();
 }
