@@ -19,8 +19,11 @@ public:
     void keyPressEvent(QKeyEvent* keyEvent);
     void keyReleaseEvent(QKeyEvent* keyEvent);
 
+    void reset();
+
     unsigned int score() { return _currentScore; }
     unsigned int maxScore() { return _maxScore; }
+    unsigned int level() { return _level; }
     void updateScore(unsigned int s);
 
     Player player() { return _player; }
@@ -35,12 +38,15 @@ private:
 
     unsigned int _currentScore;
     unsigned int _maxScore;
+    unsigned int _level; /* A level is every tens of y() */
 
     Player _player;
     Laser _laser;
     ObstacleManager _obstacleManager;
 
     bool jumpPressed;
+
+    void collisions();
 };
 
 #endif

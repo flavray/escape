@@ -11,6 +11,7 @@ class ObstacleManager {
 public:
     ObstacleManager();
     void update(float y);
+    void updateObstacleLevel(unsigned int level);
 
     std::deque<Obstacle> obstacles() { return _obstacles; }
 
@@ -21,8 +22,9 @@ private:
 
     Player::Direction _lastDirection;
 
-    std::default_random_engine _generator;
-    std::normal_distribution<float> _distribution;
+    std::knuth_b _generator;
+    std::normal_distribution<float> _space_distribution;
+    std::normal_distribution<float> _size_distribution;
 
     void generateObstacle();
 };

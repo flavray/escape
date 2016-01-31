@@ -8,7 +8,7 @@ public:
 
     float y() { return _y; }
 
-    static constexpr const float SPEED = 0.0085f;
+    static constexpr const float SPEED = 0.009f;
 
 private:
     float _y;

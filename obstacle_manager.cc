@@ -1,10 +1,18 @@
+#include <cmath>
+#include <chrono>
+
 #include "obstacle_manager.h"
 
 #include "scene.h"
 
 ObstacleManager::ObstacleManager()
-    : _distribution(0.6f, 0.4f)
+    : _space_distribution(0.6f, 0.4f)
+    , _size_distribution(Obstacle::HEIGHT, 0.06f)
 {
+    /* Init randgen */
+    time_t tm = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    _generator.seed(tm);
+
     // generate first obstacle - chosen on fair dice roll
     _obstacles.push_back(Obstacle(RIGHT_SIDE, 1.0f));
     _lastDirection = Player::RIGHT;
@@ -34,7 +42,18 @@ void ObstacleManager::generateObstacle() {
         _lastDirection = Player::LEFT;
     }
 
-    float y = lastY + _distribution(_generator);
+    float y = lastY + _space_distribution(_generator);
+    float h = _size_distribution(_generator);
 
-    _obstacles.push_back(Obstacle(x, y));
+    _obstacles.push_back(Obstacle(x, y, Obstacle::WIDTH, h));
+}
+
+/* This is used to vary the "randomness" of the obstacles flow, in
+   order to make the game harder and harder.
+*/
+void ObstacleManager::updateObstacleLevel(unsigned int level) {
+    /* The space between obstacles is linearly thinner and thinner. */
+    _space_distribution = std::normal_distribution<float>
+        (0.6f * (float)(100 - level) / 100.0f,
+         0.1f);
 }
