@@ -17,6 +17,7 @@ Game::Game(int framesPerSecond, QWidget *parent)
 
     _currentScore = 0;
     _maxScore = 0;
+    _level = 0;
 
     jumpPressed = false;
 }
@@ -78,6 +79,10 @@ void Game::paintGL() {
 }
 
 void Game::updateScore(unsigned int s) {
+    if (_level < (s / 10)) { /* If we passed a level */
+        _level = s / 10;
+        _obstacleManager.updateObstacleLevel((float)s);
+    }
     _currentScore = s;
     if (s > _maxScore)
         _maxScore = s;
