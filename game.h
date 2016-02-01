@@ -19,6 +19,8 @@ public:
     void paintGL();
     void keyPressEvent(QKeyEvent* keyEvent);
     void keyReleaseEvent(QKeyEvent* keyEvent);
+    void mousePressEvent(QMouseEvent* mouseEvent);
+    void mouseReleaseEvent(QMouseEvent* mouseEvent);
 
     void reset();
 
