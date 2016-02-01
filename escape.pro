@@ -12,4 +12,5 @@ HEADERS += src/*.h
 SOURCES += src/*.cc
 
 # Output
+MOC_DIR = moc
 OBJECTS_DIR = build
