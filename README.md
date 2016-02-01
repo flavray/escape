@@ -24,6 +24,14 @@ $ make -j4
 Running
 -------
 
+* On Linux:
+
 ```
 $ ./escape
+```
+
+* On Mac OS X:
+
+```
+$ ./escape.app/Contents/MacOS/escape
 ```
