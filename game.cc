@@ -65,6 +65,18 @@ void Game::keyReleaseEvent(QKeyEvent* keyEvent) {
     }
 }
 
+void Game::mousePressEvent(QMouseEvent* mouseEvent) {
+    if (mouseEvent->button() == Qt::LeftButton)
+        jumpPressed = true;
+    else if (mouseEvent->button() == Qt::RightButton)
+        glRotatef(90, 0, 0, 1);
+}
+
+void Game::mouseReleaseEvent(QMouseEvent* mouseEvent) {
+    if (mouseEvent->button() == Qt::LeftButton)
+        jumpPressed = false;
+}
+
 
 /* This is the main loop function, every change in the game happens
    here. */
