@@ -6,7 +6,7 @@
 #include <iostream>
 
 Game::Game(int framesPerSecond, QWidget *parent)
-    : QGLWidget(parent), _digitsImage("digits.png")
+    : QGLWidget(parent), _digitsImage("assets/digits.png")
 {
     setWindowTitle(QString("escape"));
 
