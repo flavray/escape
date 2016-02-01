@@ -2,12 +2,15 @@
 
 #include "player.h"
 
-#include <QtOpenGL>
-
-#include <iostream>
+Image* Scene::_digitsImage = NULL;
 
 // Main drawing routine
 void Scene::draw(Game* game) {
+    if (!_digitsImage)
+        _digitsImage = new Image("assets/digits.png");
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
     glColor3f(0.11f, 0.11f, 0.11f);
 
     // Left side
@@ -92,4 +95,67 @@ void Scene::draw(Game* game) {
     glVertex2f(RIGHT_SIDE + 0.06f, laserY - 0.08f);
     glVertex2f(RIGHT_SIDE, laserY - 0.05f);
     glEnd();
+
+    /* Score and max score */
+    _digitsImage->prepaint();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    unsigned int score = game->score();
+    int i = 0;
+    while (score > 0) {
+        int digit = score % 10;
+
+        float width = 0.1f;
+        float x = digit * width;
+
+        glBegin(GL_QUADS);
+
+        glTexCoord2f(x, 0.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.8);
+
+        glTexCoord2f(x + width, 0.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.8);
+
+        glTexCoord2f(x + width, 1.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.88);
+
+        glTexCoord2f(x, 1.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.88);
+
+        glEnd();
+
+        score /= 10;
+        i++;
+    }
+
+    unsigned int mscore = game->maxScore();
+    i = 0;
+    while (mscore > 0) {
+        int digit = mscore % 10;
+
+        float width = 0.1f;
+        float x = digit * width;
+
+        glBegin(GL_QUADS);
+
+        glTexCoord2f(x, 0.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.7);
+
+        glTexCoord2f(x + width, 0.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.7);
+
+        glTexCoord2f(x + width, 1.0f);
+        glVertex2f(0.9 - 0.08 * (i - 1), 0.78);
+
+        glTexCoord2f(x, 1.0f);
+        glVertex2f(0.9 - 0.08 * i, 0.78);
+
+        glEnd();
+
+        mscore /= 10;
+        i++;
+    }
+
+    glDisable(GL_TEXTURE_2D);
 }

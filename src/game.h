@@ -47,8 +47,6 @@ private:
     Laser _laser;
     ObstacleManager _obstacleManager;
 
-    Image _digitsImage;
-
     bool jumpPressed;
 
     void collisions();
